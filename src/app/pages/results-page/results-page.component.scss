@@ -46,4 +46,12 @@
     padding: 0.5em;
     border-radius: 0.5em;
   }
+
+  &__errorText {
+    color: variables.$text-color;
+  }
+
+  &__progress-spinner {
+    stroke: variables.$text-color;
+  }
 }

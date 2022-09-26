@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 import { Joke } from '../../models/JokesResponse';
-import { ChuckNorrisService } from '../../services/chuck-norris/chuck-norris.service';
 
 @Component({
   selector: 'app-search-page',
@@ -15,7 +15,7 @@ export class SearchPageComponent implements OnInit {
   readonly chuckNorrisIcon =
     'https://api.chucknorris.io/img/avatar/chuck-norris.png';
 
-  constructor(private chuckNorrisService: ChuckNorrisService) {}
+  constructor(private router: Router) {}
 
   searchJokes(query: string) {
     this.$search.next(query);
@@ -25,26 +25,11 @@ export class SearchPageComponent implements OnInit {
     this.$search
       .pipe(
         filter((e) => !!e),
-        debounceTime(500),
-        distinctUntilChanged((prev, curr) => prev === curr)
+        debounceTime(1000)
       )
       .subscribe((query) => {
-        this.getJokesForQuery(query);
+        this.router.navigate(['/results'], { queryParams: { query } });
       });
-  }
-
-  private getJokesForQuery(query: string) {
-    this.chuckNorrisService.getJokes(query).subscribe({
-      next: (res) => {
-        this.jokes = res.result;
-      },
-      error: (err) => {
-        console.log(
-          '🚀 -> SearchPageComponent -> this.chuckNorrisService.getJokes -> err',
-          err
-        );
-      },
-    });
   }
 
   ngOnInit(): void {

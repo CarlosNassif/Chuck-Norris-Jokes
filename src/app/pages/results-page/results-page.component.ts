@@ -1,5 +1,15 @@
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  tap,
+  throwError,
+} from 'rxjs';
+
 import { Joke } from './../../models/JokesResponse';
-import { Component, OnInit } from '@angular/core';
+import { ChuckNorrisService } from './../../services/chuck-norris/chuck-norris.service';
 
 @Component({
   selector: 'app-results-page',
@@ -7,13 +17,79 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./results-page.component.scss'],
 })
 export class ResultsPageComponent implements OnInit {
-  jokes: Joke[] | null = teste.result;
+  $search: EventEmitter<string> = new EventEmitter();
+  jokes!: Joke[];
+
+  query!: string;
   readonly chuckNorrisIcon =
     'https://api.chucknorris.io/img/avatar/chuck-norris.png';
 
-  constructor() {}
+  showLoading: boolean = false;
+  errorHappened: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private chuckNorrisService: ChuckNorrisService
+  ) {
+    this.route.queryParamMap.subscribe((params) => {
+      const queryParam = params.get('query');
+      if (!queryParam) {
+        this.router.navigate(['/']);
+      }
+      this.query = queryParam as string;
+      // this.setFirstValue();
+    });
+  }
+
+  searchJokes(query: string) {
+    this.$search.next(query);
+  }
+
+  private setFirstValue() {
+    this.searchJokes(this.query);
+  }
+
+  private subscribeToSearchEvent() {
+    this.$search
+      .pipe(
+        filter((e) => !!e),
+        debounceTime(1000),
+        distinctUntilChanged((prev, curr) => prev === curr)
+      )
+      .subscribe((query) => {
+        this.getJokesForQuery(query);
+        this.router.navigate(['/results'], { queryParams: { query } });
+      });
+  }
+
+  private getJokesForQuery(query: string) {
+    this.showLoading = true;
+    this.errorHappened = false;
+    this.chuckNorrisService.getJokes(query).subscribe({
+      next: (res) => {
+        this.jokes = res.result;
+        if (res.total == 0) {
+          this.errorHappened = true;
+        }
+      },
+      error: (err) => {
+        console.log(
+          '🚀 -> ResultsPageComponent -> this.chuckNorrisService.getJokes -> err',
+          err
+        );
+        this.errorHappened = true;
+      },
+      complete: () => {
+        this.showLoading = false;
+      },
+    });
+  }
+
+  ngOnInit(): void {
+    this.subscribeToSearchEvent();
+    this.setFirstValue();
+  }
 }
 
 const teste = {

@@ -8,5 +8,6 @@
     name="searchbar"
     id="searchbar"
     (keyup)="searchJokes(searchBar.value)"
+    (keydown.enter)="searchJokes(searchBar.value)"
   />
 </main>
