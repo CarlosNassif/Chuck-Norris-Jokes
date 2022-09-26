@@ -1,1 +1,25 @@
-<p>results-page works!</p>
+<main class="main">
+  <header class="main__header">
+    <a routerLink="">
+      <img
+        class="main__header-icon"
+        [src]="chuckNorrisIcon"
+        alt="Chuck Norris Icon"
+    /></a>
+    <!-- searchbar -->
+    <input
+      #searchBar
+      class="main__header-searchbar"
+      type="search"
+      name="searchbar"
+      id="searchbar"
+    />
+  </header>
+
+  <!-- results list -->
+  <ul class="main__list" *ngIf="!!jokes && jokes.length > 0">
+    <li class="main__item" *ngFor="let joke of jokes">
+      {{ joke.value }}
+    </li>
+  </ul>
+</main>

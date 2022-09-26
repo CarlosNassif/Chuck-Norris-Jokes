@@ -1,0 +1,47 @@
+@use "../../../variables" as variables;
+
+.main {
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-icon {
+      height: 3em;
+      margin-right: 1em;
+    }
+
+    &-searchbar {
+      outline: none;
+      border: none;
+      height: 2em;
+      font-size: 1em;
+      width: 100%;
+      border-radius: 0.5em;
+      padding: 0.1em 0.2em;
+      color: variables.$text-color;
+      background-color: variables.$background-color-tint;
+      box-shadow: 0px 0px 5px variables.$background-color-shadow;
+    }
+  }
+
+  &__list {
+    height: calc(95vh - 3em);
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0px 0.5em;
+  }
+
+  &__item {
+    &::marker {
+      content: "";
+    }
+    color: variables.$text-color;
+    box-shadow: 0px 0px 5px variables.$background-color-shadow;
+    background-color: variables.$background-color-tint;
+    box-sizing: border-box;
+    margin: 1em 0.5em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+  }
+}

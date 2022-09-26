@@ -9,12 +9,4 @@
     id="searchbar"
     (keyup)="searchJokes(searchBar.value)"
   />
-
-  <!-- results list -->
-  <ul class="main__list" *ngIf="!!jokes && jokes.length > 0">
-    <li class="main__item" *ngFor="let joke of jokes">
-      <!-- <img [src]="chuckNorrisIcon" alt="chuck norris icon" /> -->
-      {{ joke.value }}
-    </li>
-  </ul>
 </main>
