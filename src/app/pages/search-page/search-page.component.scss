@@ -29,4 +29,24 @@
     background-color: variables.$background-color-tint;
     box-shadow: 0px 0px 5px variables.$background-color-shadow;
   }
+
+  &__list {
+    height: 50vh;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0px 0.5em;
+  }
+
+  &__item {
+    &::marker {
+      content: "";
+    }
+    color: variables.$text-color;
+    box-shadow: 0px 0px 5px variables.$background-color-shadow;
+    background-color: variables.$background-color-tint;
+    box-sizing: border-box;
+    margin: 1em 0.5em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+  }
 }

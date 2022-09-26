@@ -2,11 +2,19 @@
   <h1 class="main__title">Chuck Norris Jokes</h1>
   <!-- searchbar -->
   <input
+    #searchBar
     class="main__searchbar"
     type="search"
     name="searchbar"
     id="searchbar"
+    (keyup)="searchJokes(searchBar.value)"
   />
 
   <!-- results list -->
+  <ul class="main__list" *ngIf="!!jokes && jokes.length > 0">
+    <li class="main__item" *ngFor="let joke of jokes">
+      <!-- <img [src]="chuckNorrisIcon" alt="chuck norris icon" /> -->
+      {{ joke.value }}
+    </li>
+  </ul>
 </main>
