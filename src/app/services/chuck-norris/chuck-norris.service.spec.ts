@@ -47,7 +47,7 @@ describe('ChuckNorrisService', () => {
     req.flush(JOKES_RESPONSE_EXAMPLE);
   });
 
-  fit('should store jokes on the cache', () => {
+  it('should store jokes on the cache', () => {
     function checkJokes(jokes: JokesResponse) {
       expect(jokes).toBeTruthy();
 
