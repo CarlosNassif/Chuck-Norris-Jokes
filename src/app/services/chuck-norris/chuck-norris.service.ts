@@ -12,6 +12,10 @@ export class ChuckNorrisService {
     [query: string]: JokesResponse;
   } = {};
 
+  get cacheCopy() {
+    return JSON.parse(JSON.stringify(this.cache));
+  }
+
   constructor(private http: HttpClient) {}
 
   /**
