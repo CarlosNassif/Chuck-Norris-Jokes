@@ -1,8 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
-
-import { Joke } from '../../models/JokesResponse';
+import { debounceTime, filter } from 'rxjs';
 
 @Component({
   selector: 'app-search-page',
@@ -10,10 +8,7 @@ import { Joke } from '../../models/JokesResponse';
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent implements OnInit {
-  $search: EventEmitter<string> = new EventEmitter();
-  jokes: Joke[] | null = null;
-  readonly chuckNorrisIcon =
-    'https://api.chucknorris.io/img/avatar/chuck-norris.png';
+  private $search: EventEmitter<string> = new EventEmitter();
 
   constructor(private router: Router) {}
 
