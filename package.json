@@ -1,6 +1,11 @@
 {
-  "name": "test-frontend-1",
-  "version": "0.0.0",
+  "name": "chuck-norris-jokes",
+  "version": "1.0.0",
+  "author": {
+    "name": "Carlos Nassif",
+    "email": "carlos.ncp7@gmail.com",
+    "url": "https://github.com/CarlosNassif"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
