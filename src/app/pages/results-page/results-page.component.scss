@@ -48,6 +48,26 @@
     margin: 1em 0.5em;
     padding: 0.5em;
     border-radius: 0.5em;
+
+    p {
+      font-size: 1em;
+      margin-bottom: 0px;
+    }
+
+    &-tag {
+      margin-top: 0.5em;
+      display: flex;
+      flex-wrap: wrap;
+      span {
+        margin: 0.5em;
+        width: fit-content;
+        color: variables.$text-color;
+        border: 1px solid variables.$text-color;
+        border-radius: 0.5em;
+        padding: 0.5em;
+        background-color: variables.$background-color;
+      }
+    }
   }
 
   &__errorText {

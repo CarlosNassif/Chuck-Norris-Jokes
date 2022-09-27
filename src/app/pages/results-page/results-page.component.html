@@ -31,7 +31,11 @@
 
   <ul class="main__list" *ngIf="!!jokes && jokes.length > 0">
     <li class="main__item" *ngFor="let joke of jokes">
-      {{ joke.value }}
+      <p>{{ joke.value }}</p>
+      <p *ngIf="joke.categories.length > 0" class="main__item-tag">
+        <span *ngFor="let category of joke.categories">{{ category }}</span>
+        <span>{{ joke.updated_at | date }}</span>
+      </p>
     </li>
   </ul>
 </main>
